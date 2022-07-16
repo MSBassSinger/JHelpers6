@@ -1,0 +1,850 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JHelpers6</name>
+    </assembly>
+    <members>
+        <member name="T:Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum">
+            <summary>
+            Enumerated constant to reflect what type of length is used
+            
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum.Unassigned">
+            <summary>
+            Value used as default, or unassigned.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum.Miles">
+            <summary>
+            Use miles.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum.Kilometers">
+            <summary>
+            Use kilometers.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum.Feet">
+            <summary>
+            Use feet.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum.Meters">
+            <summary>
+            Use meters.
+            </summary>
+        </member>
+        <member name="T:Jeff.Jones.JHelpers6.AddressGeoData">
+            <summary>
+            A struct for two point geo data.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.AddressGeoData.Latitude1">
+            <summary>
+            Latitude for the first geo point.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.AddressGeoData.Longitude1">
+            <summary>
+            Longitude for the first geo point.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.AddressGeoData.Altitude1">
+            <summary>
+            Altitude for the first geo point.  If you do not have this value, use 0.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.AddressGeoData.Latitude2">
+            <summary>
+            Latitude for the second geo point.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.AddressGeoData.Longitude2">
+            <summary>
+            Longitude for the second geo point.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.AddressGeoData.Altitude2">
+            <summary>
+            Altitude for the second geo point.  If you do not have this value, use 0.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.AddressGeoData.LinearDistance">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.AddressGeoData.UnitsOfMeasure">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.AddressGeoData.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="pLatitude1"></param>
+            <param name="pLongitude1"></param>
+            <param name="pAltitude1"></param>
+            <param name="pLatitude2"></param>
+            <param name="pLongitude2"></param>
+            <param name="pAltitude2"></param>
+            <param name="pUnitsOfMeasure"></param>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.AddressGeoData.SetUnitsOfMeasure(Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum)">
+            <summary>
+            Set the units of measure used for distance.
+            </summary>
+            <param name="lngUnitsOfMeasure"></param>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.AddressGeoData.SetLinearDistance(System.Double)">
+            <summary>
+            Sets the linear distance between points, as calculated outside this class.
+            </summary>
+            <param name="dDistance"></param>
+        </member>
+        <member name="T:Jeff.Jones.JHelpers6.CommonHelpers">
+            <summary>
+            A static class that provides numerous helper methods.
+            </summary>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetFullExceptionMessage(System.Exception,System.Boolean,System.Boolean)">
+            <summary>
+            Returns error messages from the parent exception and any 
+            exceptions down the stack, and optionally, the data collection.
+            
+            </summary>
+            <param name="ex2Examine">The exception to examine.</param>
+            <param name="getDataCollection">True if the data collection items are to be included; False if not.</param>
+            <param name="getStackTrace">True if the stack trace is to be included; False if not.</param>
+            <returns>A string with the error messages</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.Contains(System.String,System.String,System.StringComparison)">
+            <summary>
+            String extension to allow string comparison type on the string to check.
+            </summary>
+            <param name="source">Original string (passed by default)</param>
+            <param name="toCheck">The string you want to find in the source</param>
+            <param name="strComp">How the strings are compared</param>
+            <returns>True if it the toCheck string is in the source string,, false if not.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ContainsHowMany(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets the count of how many times a give string occurs within another string.
+            </summary>
+            <param name="source">The string to be searched.</param>
+            <param name="toCheck">The string to search for.</param>
+            <param name="ignoreCase">True to ignore case differences, false if case-sensitive.</param>
+            <returns>Count of 0 to n occurrences</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ConvertToBoolean(System.String,System.Boolean@)">
+            <summary>
+            String extension to convert a string, assumed to be in a format that can be converted, to a Boolean value.
+            Recognizes as true (case insensitive) true, on, yes, up, ok, good, 1, -1
+            Recognizes as false (case insensitive): false, off, no, down, not ok, bad, 0
+            If the conversion fails, false is returned.  Check the isBoolean out value to see if the 
+            conversion detected a boolean value.  If it is false, the value was not converted.
+            </summary>
+            <param name="valueToExamine">The string value to be converted, that also host this method.</param>
+            <param name="isBoolean">Out parameter that is True if it can be converted to Boolean, and False if not.</param>
+            <returns>Returns the Boolean value, and whether the conversion was successful by out parameter isBoolean.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsBoolean(System.String)">
+            <summary>
+            Tests a string, assumed to be in a format that can be converted, to a Boolean value.
+            Recognizes as true (case insensitive) true, on, yes, up, ok, good, start, 1, -1
+            Recognizes as false (case insensitive): false, off, no, down, not ok, bad, stop, 0
+            If the conversion fails, False is returned.  Otherwise, True is returned.
+            </summary>
+            <param name="valueToExamine">The string value to be converted, that also host this method.</param>
+            <returns>Returns true if it can be converted, false if not.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.BoolConvert(System.String,System.Boolean@)">
+            <summary>
+            Converts a string to a Boolean value.  This function is only used internally.
+            </summary>
+            <param name="valueToExamine">The string to examine.</param>
+            <param name="didConvert">True if it did convert, false if it could not be converted.</param>
+            <returns>The converted Boolean value, or if conversion was not possible, false. Check the didConvert value.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsOnlyDigits(System.String,System.Boolean)">
+            <summary>
+            This string extension process checks for all characters being digits.  
+            Conversion functions to test numbers may translate letters as Hex values.
+            </summary>
+            <param name="testString">String to be examined.</param>
+            <param name="includePeriod">True if the one and only period is treated as being a number, so that decimal number strings can be handled properly.</param>
+            <returns>True if the string is only digits, False if not.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetOnlyDigits(System.String,System.Boolean)">
+            <summary>
+            This string extension process gets all digits in a string
+            and ignores any non-digits.  If includePeriod is true, then 
+            the first period in the string will be included in the results.
+            </summary>
+            <param name="testString">String to be examined.</param>
+            <param name="includePeriod">True if the one and only period is treated as being a number, so that decimal number strings can be handled properly.</param>
+            <returns>String of digits.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetOnlyLetters(System.String,System.Boolean)">
+            <summary>
+            This string extension process gets all letters in a string 
+            and ignores any non-letters, unless spaces are requested.
+            </summary>
+            <param name="testString">String to be examined.</param>
+            <param name="includeSpace">True if spaces are to be included in the return value.</param>
+            <returns>String of digits.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetOnlyLettersAndDigits(System.String,System.Boolean)">
+            <summary>
+            This process gets all letters and digits in a string, 
+            and ignores all else, with the exception of periods and spaces
+            when includePeriodAndSpace is true.
+            </summary>
+            <param name="testString">String to be examined.</param>
+            <param name="includePeriodAndSpace">True to include all periods and spaces as if they were letters.</param>
+            <returns>String of characters.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsOnlyLetters(System.String,System.Boolean)">
+            <summary>
+            This process checks for all characters being letters.  If includeSpace 
+            is true, then spaces are accepted as if they were letters.
+            </summary>
+            <param name="testString">String to be examined.</param>
+            <param name="includeSpace">True if a space should be considered a letter, false if not.</param>
+            <returns>True if the string is only letters, False if not.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsOnlyLettersAndOrDigits(System.String,System.Boolean)">
+            <summary>
+            This extension method checks for all characters being only letters and numbers.
+            </summary>
+            <param name="testString">String to be examined.</param>
+            <param name="includePeriodAndSpace">True if spaces and all periods are to be counted in the return value.</param>
+            <returns>True if the string is only letters, False if not.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsEmailFormat(System.String)">
+            <summary>
+            This extension method for the String object checks the string to see if it is a valid email format.
+            It does not check whether it is a valid, working email.
+            </summary>
+            <param name="email">The email address to test</param>
+            <returns>True if formatted correctly, False if not.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetDateTime(System.String,System.DateTime)">
+            <summary>
+            This string extension converts string to date, or returns the default value.
+            </summary>
+            <param name="dateString">A string that can be converted to a DateTime variable</param>
+            <param name="dateDefault">The default value if dateString cannot be converted</param>
+            <returns>The DateTime value if the string converts, the default value if not</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetDecimal(System.String,System.Decimal)">
+            <summary>
+            This string extension converts string to decimal value, or returns the default value.
+            </summary>
+            <param name="numberString">A string that can be converted to a Decimal variable</param>
+            <param name="decimalDefault">The default value if numberString cannot be converted</param>
+            <returns>The Decimal value if the string converts, the default value if not</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetInt32(System.String,System.Int32)">
+            <summary>
+            This string extension converts string to Int32 value, or returns the default value.
+            </summary>
+            <param name="numberString">A string that can be converted to an Int32 variable</param>
+            <param name="integerDefault">The default value if numberString cannot be converted</param>
+            <returns>The Int32 value if the string converts, the default value if not</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetInt64(System.String,System.Int64)">
+            <summary>
+            This string extension converts string to Int64 value, or returns the default value.
+            </summary>
+            <param name="numberString">A string that can be converted to a Int64 variable</param>
+            <param name="integerDefault">The default value if numberString cannot be converted</param>
+            <returns>The Int64 value if the string converts, the default value if not</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetDefaultValue(System.Type)">
+            <summary>
+            Gets a default value for a type, if one exists.
+            </summary>
+            <param name="t">The type for which a default is being sought.</param>
+            <returns>New value or default value.</returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.RowDelimiter">
+            <summary>
+            This value can be applied to the value for a constant.
+            
+            RowDelimiter is the same non-printable ASCII character used
+            in teletypes and other devices to indicate a new row, 
+            and not likely to be seen in string data.
+            </summary>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.ColumnDelimiter">
+            <summary>
+            This value can be applied to the value for a constant.
+            
+            ColumnDelimiter is the same non-printable ASCII character used
+            in teletypes and other devices to indicate a new column, 
+            and not likely to be seen in string data.
+            </summary>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.TableDelimiter">
+            <summary>
+            This value can be applied to the value for a constant.
+            
+            TableDelimiter is the same non-printable ASCII character used
+            in teletypes and other devices to indicate a new table of data, 
+            and not likely to be seen in string data.
+            </summary>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.FullComputerName">
+            <summary>
+            Gets the full computer name that DNS will recognize in any domain
+            </summary>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetDNSName(System.String)">
+            <summary>
+            Gets the DNS host entry table name for a given computer name.
+            If pComputerName is not provided, then it returns the name of the host computer.
+            </summary>
+            <param name="pComputerName">Pass in any computer name.  If left blank or null, the current computer name will be used.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.CurDir">
+             <summary>
+             Summary:
+                 Gets or sets the fully qualified path of the current working directory.
+                 For services, the current directory via normal means shows the Windows System32 
+                 directory because the service runs under an exe located there.  This property
+                 accounts for that by using one method call for running in the IDE, and another for 
+                 running compiled.
+            
+             Returns:
+                 A String containing a directory path.
+            
+             Exceptions:
+               System.UnauthorizedAccessException      [Directory.GetCurrentDirectory()]
+               System.NotSupportedException            [Directory.GetCurrentDirectory()]
+               System.ArgumentException                [Path.GetDirectoryName()]
+               System.IO.PathTooLongException          [Path.GetDirectoryName()]
+               </summary>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.AddCheck(System.Collections.IDictionary,System.String,System.Object)">
+            <summary>
+            IDictioanry extension method that is an enhanced Add to check to see if a key exists, and if so, 
+            adds the key with an ordinal appended to thye key name to prevent overwrite.
+            This is useful with the Exception.Data IDictionary collection, among other
+            IDictionary implementations.
+            </summary>
+            <param name="dct">The IDictionaryimplementation</param>
+            <param name="dataKey">The string key for the name-value pair.</param>
+            <param name="dataValue">The value for the name-value pair.  Accepts any data type, which is resolved to the type at runtime.</param>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.AmIRunningInTheIDE">
+            <summary>
+            This method will return true if this project, or any project that
+            calls this component as compiled code, is running under the IDE
+            </summary>
+            <returns>This method returns false if no IDE is being used.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsInDomain">
+            <summary>
+            Checks to see if the computer is in a domain.
+            </summary>
+            <returns>True if the host computer is in a domain, false if not.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ConvertFeetToMeters(System.Decimal)">
+            <summary>
+            Converts feet to meters.
+            </summary>
+            <param name="feet">Number of feet to be converted.</param>
+            <returns>Length in meters.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ConvertMetersToFeet(System.Decimal)">
+            <summary>
+            Converts meters to feet.
+            </summary>
+            <param name="meters">Number of meters to be converted.</param>
+            <returns>Length in feet.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ConvertMilesToKilometers(System.Decimal)">
+            <summary>
+            Converts miles to kilometers.
+            </summary>
+            <param name="miles">Number of miles to be converted.</param>
+            <returns>Length in kilometers.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ConvertKilometersToMiles(System.Decimal)">
+            <summary>
+            Converts kilometers to miles.
+            </summary>
+            <param name="kilometers">Number of kilometers to convert.</param>
+            <returns>Length in miles.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ConvertGallonsToLiters(System.Decimal)">
+            <summary>
+            Converts gallons to liters.
+            </summary>
+            <param name="gallons">Volume in liters.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ConvertLitersToGallons(System.Decimal)">
+            <summary>
+            Converts liters to gallons.
+            </summary>
+            <param name="liters">Number of liters to convert.</param>
+            <returns>Volume in gallons.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetComputerDomainName">
+            <summary>
+            Returns the Domain which the computer is joined to.  Note: if user is logged in as local account the domain of computer is still returned.
+            </summary>
+            <returns>A String with the domain name if it's joined.  String.Empty if it isn't.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetFullComputerDomainName">
+            <summary>
+            Returns the full domain name instead of the alias.
+            </summary>
+            <returns>String with the full domain name.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsDaylightSavingsTime(System.DateTime)">
+            <summary>
+            True if the datetime supplied falls within the period of Daylight Savings.
+            </summary>
+            <param name="dtmToTest">The date to test for DST.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsDaylightSavingsTime">
+            <summary>
+            Checks if the current time is DST.
+            </summary>
+            <returns>True if it is currently daylight savings time.</returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.CurrentTimeZoneDaylightName">
+            <summary>
+            Name of the current time zone for daylight savings.
+            </summary>
+            <returns>String with the current time zone's DST name.</returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.CurrentTimeZoneName">
+            <summary>
+            Current time zone name.
+            
+            Exceptions:
+              System.ArgumentNullException - An attempt was made to set this property to null.
+            </summary>
+            <returns>A string with the current time zone name, DST or standard time.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.Asc(System.String)">
+            <summary>
+            Same functionality as the VB6 ASC function - give it a character, get back the ASCII 
+            decimal number.  If you provide more than one character, only the first one is used.
+            </summary>
+            <param name="strChar"></param>
+            <returns>ASCII value of the single character.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.Hex(System.Int32)">
+            <summary>
+            Same as the VB6 function.  Converts a 32 bit integer to a String hex value.
+            </summary>
+            <param name="lngValue"></param>
+            <returns>String hex value.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetCurrentCPUUsage">
+            <summary>
+            Gets the current % processor time from the performance counter.
+            </summary>
+            <returns>% Processor time</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.AvailableRAMinMB">
+            <summary>
+            Returns available RAM MBs from the performance counter.
+            </summary>
+            <returns>Returns available RAM MBs</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.Ping(System.String,System.Int32)">
+             <summary>
+             Summary:
+                 Pings the specified server.
+            
+             Parameters:
+               hostNameOrAddress:
+                 String. The URL, computer name, or IP number of the server to ping. Required.
+            
+               timeout:
+                 System.Int32. Time threshold in milliseconds for contacting the destination.
+                 Default is 500. Required.
+            
+             Returns:
+                 PingReply instance indicating whether or not the operation was successful.
+             </summary>
+             <param name="strHostName"></param>
+             <param name="lngTimeout"></param>
+             <returns>System.Net.NetworkInformation.PingReply object with information about the ping.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetLinearDistances(System.Collections.Generic.List{Jeff.Jones.JHelpers6.AddressGeoData}@)">
+            <summary>
+            This function uses the Haversine formula to calculate linear distance between two sets of
+            latitude and longitude, with an adjustment for the earth's radius based on the latitude.
+            Haversine is used instead of Vincenty’s formula to keep the computation simpler and less
+            processor intensive.
+            This function takes a List of address geo data instances and processes them, updating the 
+            individual class instances in the List.
+            </summary>
+            <param name="objAddressList"></param>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetLinearDistance(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum)">
+            <summary>
+            This function uses the Haversine formula to calculate linear distance between two sets of
+            latitude and longitude, with an adjustment for the earth's radius based on the latitude.
+            Haversine is used instead of Vincenty’s formula to keep the computation simpler and less
+            processor intensive.
+            
+            This overload allows the caller to specify what units of measure is desired for the return value.
+            </summary>
+            <param name="Latitude1"></param>
+            <param name="Longitude1"></param>
+            <param name="Altitude1"></param>
+            <param name="Latitude2"></param>
+            <param name="Longitude2"></param>
+            <param name="Altitude2"></param>
+            <param name="lngUnitsOfMeasure"></param>
+            <returns>Linear distance between points in the units of measure chosen.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetLinearDistance(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            This function uses the Haversine formula to calculate linear distance between two sets of
+            latitude and longitude, with an adjustment for the earth's radius based on the latitude.
+            Haversine is used instead of Vincenty’s formula to keep the computation simpler and less
+            processor intensive.
+            
+            This overload allows the user to choose between miles and kilometers (UseMiles param)
+            </summary>
+            <param name="Latitude1"></param>
+            <param name="Longitude1"></param>
+            <param name="Altitude1"></param>
+            <param name="Latitude2"></param>
+            <param name="Longitude2"></param>
+            <param name="Altitude2"></param>
+            <param name="UseMiles"></param>
+            <returns>Linear distance in miles or kilometers.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetLinearDistance(System.Double,System.Double,System.Double,System.Double,Jeff.Jones.JHelpers6.DistanceUnitsOfMeasureEnum)">
+            <summary>
+            Eliminates the user having to use altitude values.
+            </summary>
+            <param name="Latitude1">Latitude for the first geo point.</param>
+            <param name="Longitude1">Longitude for the first geo point.</param>
+            <param name="Latitude2">Latitude for the second geo point.</param>
+            <param name="Longitude2">Longitude for the second geo point,</param>
+            <param name="UnitsOfMeasure">What units the return value should represent.</param>
+            <returns>Linear distance in the specified units of measure.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.DegreesToRadians(System.Double)">
+            <summary>
+            Converts degrees to radians
+            </summary>
+            <param name="degrees">The angular degrees to be converted.</param>
+            <returns>Returns the value in radians.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.RadianToDegree(System.Double)">
+            <summary>
+            Converts radians to degrees
+            </summary>
+            <param name="radians">The radians to be converted.</param>
+            <returns>Returns the value in angular degrees.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.CelsiusToFahrenheit(System.Double)">
+            <summary>
+            Converts Celsius to Fahrenheit
+            </summary>
+            <param name="DegC">The temperature in Celsius to be converted.</param>
+            <returns>The temperature in Fahrenheit</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.FahrenheitToCelsius(System.Double)">
+            <summary>
+            Converts Fahrenheit to Celsius
+            </summary>
+            <param name="DegF">The temperature in Fahrenheit to be converted.</param>
+            <returns>The temperature in Celsius</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.StringToBase64(System.String)">
+            <summary>
+            Convert String to Base64
+            
+            Exceptions:
+              System.ArgumentNullException - String2Convert  or byte array created from it is null.
+              System.Text.EncoderFallbackException - 
+                   A fallback occurred (see Understanding Encodings for complete explanation)-and-
+                   System.Text.Encoding.EncoderFallback is set to System.Text.EncoderExceptionFallback.
+            
+            </summary>
+            <param name="String2Convert">A string to be converted to Base64</param>
+            <returns>String with Base64 value.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.Base64ToString(System.String)">
+            <summary>
+            Convert Base64String to String
+            
+            Exceptions:
+              System.ArgumentNullException - ByteString64, or the byte array made from it, is null.
+              System.FormatException - 
+                   The length of ByteString64, ignoring white-space characters, is not zero or a multiple
+                   of 4. -or-The format of ByteString64 is invalid. s contains a non-base-64 character,
+                   more than two padding characters, or a non-white space-character among the
+                   padding characters.
+              System.ArgumentException - The byte array contains invalid Unicode code points.
+              System.Text.DecoderFallbackException - 
+                   A fallback occurred (see Understanding Encodings for complete explanation)-and-
+                   System.Text.Encoding.DecoderFallback is set to System.Text.DecoderExceptionFallback.
+            
+            </summary>
+            <param name="ByteString64">A Base64 string to be decoded.</param>
+            <returns>String with converted value.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetDrives">
+            <summary>
+            Returns a list of System.IO.DriveInfo objects about the drives on the host computer.
+            </summary>
+            <returns>List of System.IO.DriveInfo objects</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetNetworkPrinters">
+            <summary>
+            Gets a list of System.Management.ManagementObject objects with info about network printers.
+            </summary>
+            <returns>List of System.Management.ManagementObject objects</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetLocalPrinters">
+            <summary>
+            Gets a list of network printers using one ManagementObject instance per printer
+            in a List object.
+            </summary>
+            <returns>List of System.Management.ManagementObject objects</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.SetIntBitValue(System.Int32@,System.Int32,System.Boolean)">
+            <summary>
+            Helper method to set bit value of an Int on/off.
+            </summary>
+            <param name="intValue">The integer holding the bit which should be set on/off</param> 
+            <param name="bitPlaceValue">The bit place value to set on/off. Ex. 32, 64, 0x10, 0x200, etc.</param>
+            <param name="setBitOn">'True' will set the bit on; 'False' will turn it off.</param>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetIntBitValue(System.Int32,System.Int32)">
+            <summary>
+            Helper method to get the state of a bit value of an Int.
+            </summary>
+            <param name="intValue">The integer holding the bit which should be checked if it's on/off</param> 
+            <param name="bitPlaceValue">The bit place value to check if it's on/off. Ex. 32, 64, 0x10, 0x200, etc.</param>
+            <returns>'True' if the bit on; 'False' if it is off.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetStackInfo">
+            <summary>
+            This gets the module, function, line number, and column number info in a String 
+            This is useful when logging and creating exceptions to define exactly where something occurred.
+            </summary>
+            <returns>A string with stack information, module name, method name, line number, and column number.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetStackInfo(System.Exception)">
+            <summary>
+            This gets the module, function, line number, and column number info in a String based on an exception.
+            This is useful when logging and creating exceptions to define exactly where something occurred.
+            </summary>
+            <returns>A string with stack information, module name, method name, line number, and column number.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetFullDateTimeStampForFileName(System.DateTime)">
+            <summary>
+            This returns a String with a consistent datetime format for a filename.
+            </summary>
+            <param name="dtmDate">Date to use for the date-time stamp.</param>
+            <returns>String suitable for use in a file name.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsFileText(System.Text.Encoding@,System.String,System.Int32)">
+            <summary> 
+            Detect if a file is text and detects the encoding. 
+            </summary> 
+            <param name="lngEncoding">The detected encoding, as an out parameter.</param> 
+            <param name="strFileName">The file name.</param> 
+            <param name="lngNumCharactersToRead">The number in the file to use for testing. There is a minimum of 80 characters although if the file is smaller than the specified size, all characters will be used.</param> 
+            <returns>true if the file is text.</returns> 
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetTotalHDDFreeSpace(System.String)">
+            <summary>
+            Checks the specified drive for free disk space.
+            </summary>
+            <param name="pDriveName">The drive name.</param>
+            <returns>Returns MB of free disk space</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetTotalHDDSize(System.String)">
+            <summary>
+            Gets the total disk size of the specified drive.
+            </summary>
+            <param name="pDriveName">The drive name.</param>
+            <returns>Returns MB of total space</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetMinPasswordLength">
+            <summary>
+            Returns the minimum password length from a domain, if one exists.
+            If no domain exists, -1 is returned.
+            </summary>
+            <returns>-1 if no domain exists, or the minimum password length for the domain.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsIPAddress(System.String,System.Net.IPAddress@)">
+            <summary>
+            Checks to see if a string is an IPv4 or IPv6 address, and returns an IPAddress object as an out parameter.
+            </summary>
+            <param name="pValue">The string representation of the IP address.</param>
+            <param name="pIPValue">Out parameter as a System.Net.IPAddress object. Null if not a valid IP address.</param>
+            <returns>True if a valid IP address, false if not.</returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.AssemblyTitle">
+            <summary>
+            Checks the .NET assembly for a title.
+            </summary>
+            <returns>Returns the title of the .NET assembly.</returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.AssemblyVersion">
+            <summary>
+            Checks the .NET assembly for the version.
+            </summary>
+            <returns>Returns a string with the assembly version.</returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.AssemblyDescription">
+            <summary>
+            Checks the .NET assembly for the description.
+            </summary>
+            <returns>Returns a string with the .NET assembly description.</returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.AssemblyProduct">
+            <summary>
+            Checks the .NET assembly for the product description.
+            </summary>
+            <return>Returns a string with the .NET asssembly product description.</return>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.AssemblyCopyright">
+            <summary>
+            Checks the .NET assembly for the copyright description.
+            </summary>
+            <return>Returns a string with the .NET asssembly copyright description.</return>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.CommonHelpers.AssemblyCompany">
+            <summary>
+            Checks the .NET assembly for the company name.
+            </summary>
+            <return>Returns a string with the .NET asssembly company name.</return>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetExceptionInfo(System.Exception,System.String@,System.String@,System.String@,System.String@,System.String@,System.Int32@,System.Int32@)">
+            <summary>
+            Takes an exception gets the stack of messages, stack trace, etc.
+            </summary>
+            <param name="pExceptionToUse">Exception instance to be examined.</param>
+            <param name="LogMessage">Out string with the exception message(s), including inner exceptions.</param>
+            <param name="ExceptionData">Out string with the exception's Data collection, including inner exceptions.</param>
+            <param name="StackTraceDescrs">Out string with the outer exception's stack trace descriptions.</param>
+            <param name="PreviousModule">Out string with the module name where the outer exception was thrown.</param>
+            <param name="PreviousMethod">Out string with the method name where the outer exception was thrown.</param>
+            <param name="PreviousLineNumber">Out Int32 with the line number where the outer exception was thrown</param>
+            <param name="lngThreadID">Out Int32 with the .NET thread ID when the outer exception was thrown.</param>
+            <returns>True if the information could be gathered, false otherwise.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetExceptionMessages(System.Exception)">
+            <summary>
+            Method to get all the exception messages, generally when the outer exception has inner exceptions.
+            </summary>
+            <param name="ex2Examine">Outer parameter to examine.</param>
+            <returns>String with the error messages.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetExceptionStackTrace(System.Exception)">
+            <summary>
+            Gets the stack trace as a string.
+            </summary>
+            <param name="ex2Examine">Exception to examine.</param>
+            <returns>Stack trace string without carriage return-line feeds.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.GetExceptionData(System.Exception)">
+            <summary>
+            Iterates through all the exceptions (outer and inner) for the name-value pairs in each Exception's Data collection.
+            </summary>
+            <param name="ex2Examine">Outer exception to check.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.WriteToLog(System.String,System.String,System.String)">
+            <summary>
+            Method that performs a log write where the file is tab delimited and has a column header line.
+            </summary>
+            <param name="logFileName">Fully qualified file name.</param>
+            <param name="mainMessage">Primary message to write.</param>
+            <param name="secondMessage">Secondary message to write.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.WriteHeaderToLog(System.String)">
+            <summary>
+            Creates the header line, the first line in the log.
+            </summary>
+            <returns>True if successful, false otherwise.</returns>
+        </member>
+        <member name="T:Jeff.Jones.JHelpers6.ContextMgr">
+            <summary>
+            The class is sealed to prevent derived instances, which would defeat the purpose of a singleton.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.ContextMgr.Instance">
+            <summary>
+            The single, thread-safe instance of the ContextMgr.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.ContextMgr.m_ContextValues">
+            <summary>
+            The dictionary containing the name-value pairs.
+            </summary>
+        </member>
+        <member name="F:Jeff.Jones.JHelpers6.ContextMgr.m_blnDisposeHasBeenCalled">
+            <summary>
+            True if dispose was called.
+            </summary>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.ContextMgr.#ctor">
+            <summary>
+            Private constructor so it cannot be called externally.
+            </summary>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.ContextMgr.ContextValues">
+            <summary>
+            Gets the dictionary of context values.
+            The dictionary cannot be set by the calling code, but the dictioanry elements can be added, edited, or removed.
+            </summary>
+            <returns>Returns a reference to the dictionary.</returns>
+        </member>
+        <member name="P:Jeff.Jones.JHelpers6.ContextMgr.Disposing">
+             <summary>
+             This property is true if Dispose() has been called, false if not.
+            
+             The programmer does not have to check this property before calling
+             the Dispose() method as the check is made internally and Dispose()
+             is not executed more than once.
+             </summary>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.ContextMgr.Dispose">
+            <summary>
+            Implement the IDisposable.Dispose() method
+            Developers are supposed to call this method when done with this object.
+            There is no guarantee when or if the GC will call it, so 
+            the developer is responsible to.  GC does NOT clean up unmanaged 
+            resources, so we have to clean those up, too.
+            
+            </summary>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.ContextMgr.Finalize">
+            <summary>
+            Explicit Finalize method.  The GC calls Finalize, if it is called.
+            There are times when the GC will fail to call Finalize, which is why it is up to 
+            the developer to call Dispose() from the consumer object.
+            </summary>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.ContextMgr.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="pDisposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+    </members>
+</doc>

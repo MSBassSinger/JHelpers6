@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<RootNamespace>Jeff.Jones.JHelpers6</RootNamespace>
+		<PackageVersion>6.0.0</PackageVersion>
+		<ApplicationIcon>circlej.ico</ApplicationIcon>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageId>Jeff.Jones.JHelpers6</PackageId>
+		<Title>.NET Helper funtions, classes, and extensions</Title>
+		<Authors>Jeff Jones</Authors>
+		<Company>Jeff Jones</Company>
+		<Copyright>Copyright © 2022 Jeff Jones.  All Rights Reserved.</Copyright>
+		<PackageLicenseFile>License.txt</PackageLicenseFile>
+		<PackageReleaseNotes>All requests for support must be sent by email to:
+  MSBassSinger@comcast.net
+The email MUST havd "JHelper6" in the Subject line 	You MUST provide details that include code snippets of where the failure occured, and exact failure or exception messages.</PackageReleaseNotes>
+		<PackageTags>helpers .NET extensions extentions geo</PackageTags>
+		<Description>A static library of helper functions, extentions, and classes.  You are bound to find something useful.  Built for .NET 6</Description>
+		<SignAssembly>False</SignAssembly>
+		<AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+		<Version>6.0.0</Version>
+		<DelaySign>false</DelaySign>
+		<RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+		<PackageProjectUrl>https://github.com/MSBassSinger/JHelpers6</PackageProjectUrl>
+		<AssemblyVersion>6.0.0.0</AssemblyVersion>
+		<FileVersion>6.0.0.0</FileVersion>
+		<PackageIcon>circlej.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<BaseOutputPath>bin\</BaseOutputPath>
+		<BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+		<RepositoryUrl>https://github.com/MSBassSinger/JHelpers6</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>C:\Projects\JHelpers6\JHelpers6\JHelpers6.xml</DocumentationFile>
+		<DebugType>embedded</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>embedded</DebugType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="circlej.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="License.txt">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
+		<PackageReference Include="System.DirectoryServices" Version="6.0.0" />
+		<PackageReference Include="System.Management" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="circlej.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
