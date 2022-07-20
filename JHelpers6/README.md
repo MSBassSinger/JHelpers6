@@ -1,16 +1,18 @@
 JHelpers version 6
 ========
 
-JHelpers is a .NET Standard 2.0 library component that can be used with any .NET
-project, whether Core or Standard, on any OS that works with .NET Standard or .NET Core. It
+JHelpers6 is a .NET 6 library component that can be used with any .NET
+project that uses .NET 6 on any OS that works with .NET 6. It
 is a library of generally useful methods and functionality that can save a
 developer from writing code to accomplish these mundane tasks – or worse, have
 several versions of a method that does the same thing written in multiple
-places. JHelpers is used in my JDAC and JLogger NuGet packages for that very
-reason.  JHelpers is a signed assembly.
+places. JHelpers6 is used in my JDAC6 and JLogger6 NuGet packages for that very
+reason.  JHelpers6 is NOT signed as the code is open source.
+Code for JHelpers6 is found at:
+https://github.com/MSBassSinger/JHelpers6
 
 Code examples are available in the sample application found at:
-https://github.com/MSBassSinger/JHelpers_Demo/
+https://github.com/MSBassSinger/JHelpers_Demo6
 
 ContextMgr
 ----------
