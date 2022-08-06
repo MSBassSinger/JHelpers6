@@ -331,8 +331,8 @@
         </member>
         <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.AddCheck(System.Collections.IDictionary,System.String,System.Object)">
             <summary>
-            IDictioanry extension method that is an enhanced Add to check to see if a key exists, and if so, 
-            adds the key with an ordinal appended to thye key name to prevent overwrite.
+            IDictionary extension method that is an enhanced Add to check to see if a key exists, and if so, 
+            adds the key with an ordinal appended to the key name to prevent overwrite.
             This is useful with the Exception.Data IDictionary collection, among other
             IDictionary implementations.
             </summary>

@@ -14,9 +14,7 @@
 		<Company>Jeff Jones</Company>
 		<Copyright>Copyright © 2022 Jeff Jones.  All Rights Reserved.</Copyright>
 		<PackageLicenseFile>License.txt</PackageLicenseFile>
-		<PackageReleaseNotes>All requests for support must be sent by email to:
-  MSBassSinger@comcast.net
-The email MUST havd "JHelper6" in the Subject line 	You MUST provide details that include code snippets of where the failure occured, and exact failure or exception messages.</PackageReleaseNotes>
+		<PackageReleaseNotes>This project has been made open source, and updated to .NET 6.</PackageReleaseNotes>
 		<PackageTags>helpers .NET extensions extentions geo</PackageTags>
 		<Description>A static library of helper functions, extentions, and classes.  You are bound to find something useful.  Built for .NET 6</Description>
 		<SignAssembly>False</SignAssembly>

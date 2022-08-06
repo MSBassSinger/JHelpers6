@@ -1373,8 +1373,8 @@ namespace Jeff.Jones.JHelpers6
 		}
 
 		/// <summary>
-		/// IDictioanry extension method that is an enhanced Add to check to see if a key exists, and if so, 
-		/// adds the key with an ordinal appended to thye key name to prevent overwrite.
+		/// IDictionary extension method that is an enhanced Add to check to see if a key exists, and if so, 
+		/// adds the key with an ordinal appended to the key name to prevent overwrite.
 		/// This is useful with the Exception.Data IDictionary collection, among other
 		/// IDictionary implementations.
 		/// </summary>
@@ -1693,33 +1693,36 @@ namespace Jeff.Jones.JHelpers6
 
 			try
 			{
-
-				if (m_CPUCounter == null)
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 				{
-					m_CPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-				}
 
-				try
-				{
-					float CPUUSageRaw = m_CPUCounter.NextValue();
-
-					if (CPUUSageRaw == 0.0f)
+					if (m_CPUCounter == null)
 					{
-						Thread.Sleep(100);
-						CPUUSageRaw = m_CPUCounter.NextValue();
+						m_CPUCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+					}
+
+					try
+					{
+						float CPUUSageRaw = m_CPUCounter.NextValue();
 
 						if (CPUUSageRaw == 0.0f)
 						{
-							Thread.Sleep(500);
+							Thread.Sleep(100);
 							CPUUSageRaw = m_CPUCounter.NextValue();
-						}
-					}
 
-					retVal = Convert.ToInt32(Math.Round(CPUUSageRaw, 0));
-				}
-				catch
-				{
-					retVal = -1;
+							if (CPUUSageRaw == 0.0f)
+							{
+								Thread.Sleep(500);
+								CPUUSageRaw = m_CPUCounter.NextValue();
+							}
+						}
+
+						retVal = Convert.ToInt32(Math.Round(CPUUSageRaw, 0));
+					}
+					catch
+					{
+						retVal = -1;
+					}
 				}
 			}  // END try
 			catch
@@ -1742,26 +1745,28 @@ namespace Jeff.Jones.JHelpers6
 
 			try
 			{
-
-				if (m_RAMCounter == null)
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 				{
-					m_RAMCounter = new PerformanceCounter("Memory", "Available MBytes", true);
-				}
-
-				try
-				{
-					float curValue = m_RAMCounter.NextValue();
-
-					if (curValue == 0.0f)
+					if (m_RAMCounter == null)
 					{
-						curValue = m_RAMCounter.NextValue();
+						m_RAMCounter = new PerformanceCounter("Memory", "Available MBytes", true);
 					}
 
-					retVal = Convert.ToInt32(Math.Round(m_RAMCounter.NextValue(), 0));
-				}
-				catch
-				{
-					retVal = -1;
+					try
+					{
+						float curValue = m_RAMCounter.NextValue();
+
+						if (curValue == 0.0f)
+						{
+							curValue = m_RAMCounter.NextValue();
+						}
+
+						retVal = Convert.ToInt32(Math.Round(m_RAMCounter.NextValue(), 0));
+					}
+					catch
+					{
+						retVal = -1;
+					}
 				}
 			}  // END try
 			catch
@@ -2155,25 +2160,28 @@ namespace Jeff.Jones.JHelpers6
 
 			try
 			{
-				// This is the list to be returned, which will only be populated with 
-				// printers that are network printers
-				retVal = new List<ManagementObject>();
-
-				// Use the ObjectQuery to get the list of configured printers via WMI
-				objPrinterQuery = new ObjectQuery("SELECT * FROM Win32_Printer");
-
-				objPrinterSearcher = new ManagementObjectSearcher(objPrinterQuery);
-
-				// Fetch the list of all printers
-				objQueryCollection = objPrinterSearcher.Get();
-
-				// Iterate through the list and look for network printers
-				foreach (ManagementObject objPrinter in objQueryCollection)
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 				{
-					if ((bool)objPrinter.Properties["Network"].Value)
+					// This is the list to be returned, which will only be populated with 
+					// printers that are network printers
+					retVal = new List<ManagementObject>();
+
+					// Use the ObjectQuery to get the list of configured printers via WMI
+					objPrinterQuery = new ObjectQuery("SELECT * FROM Win32_Printer");
+
+					objPrinterSearcher = new ManagementObjectSearcher(objPrinterQuery);
+
+					// Fetch the list of all printers
+					objQueryCollection = objPrinterSearcher.Get();
+
+					// Iterate through the list and look for network printers
+					foreach (ManagementObject objPrinter in objQueryCollection)
 					{
-						// This is a network printer, so add it to the list.
-						retVal.Add(objPrinter);
+						if ((bool)objPrinter.Properties["Network"].Value)
+						{
+							// This is a network printer, so add it to the list.
+							retVal.Add(objPrinter);
+						}
 					}
 				}
 			}
@@ -2220,27 +2228,30 @@ namespace Jeff.Jones.JHelpers6
 
 			try
 			{
-				// This is the list to be returned, which will only be populated with 
-				// printers that are network printers
-				retVal = new List<ManagementObject>();
-
-				// Use the ObjectQuery to get the list of configured printers via WMI
-				objPrinterQuery = new ObjectQuery("SELECT * FROM Win32_Printer");
-
-				objPrinterSearcher = new ManagementObjectSearcher(objPrinterQuery);
-
-				// Fetch the list of all printers
-				objQueryCollection = objPrinterSearcher.Get();
-
-				// Iterate through the list and look for network printers
-				foreach (ManagementObject objPrinter in objQueryCollection)
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 				{
-					if (!(bool)objPrinter.Properties["Network"].Value)
-					{
-						// This is a network printer, so add it to the list.
-						retVal.Add(objPrinter);
-					}
+					// This is the list to be returned, which will only be populated with 
+					// printers that are network printers
+					retVal = new List<ManagementObject>();
 
+					// Use the ObjectQuery to get the list of configured printers via WMI
+					objPrinterQuery = new ObjectQuery("SELECT * FROM Win32_Printer");
+
+					objPrinterSearcher = new ManagementObjectSearcher(objPrinterQuery);
+
+					// Fetch the list of all printers
+					objQueryCollection = objPrinterSearcher.Get();
+
+					// Iterate through the list and look for local printers
+					foreach (ManagementObject objPrinter in objQueryCollection)
+					{
+						if ((bool)objPrinter.Properties["Local"].Value)
+						{
+							// This is a local printer, so add it to the list.
+							retVal.Add(objPrinter);
+						}
+
+					}
 				}
 			}
 			catch
@@ -2565,34 +2576,36 @@ namespace Jeff.Jones.JHelpers6
 
 			try
 			{
-
-				Domain AgentCurrentDomain = null;
-
-				try
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT)
 				{
-					AgentCurrentDomain = Domain.GetCurrentDomain();
-				}
-				catch
-				{
-					AgentCurrentDomain = null;
+					Domain AgentCurrentDomain = null;
 
-				}  // END catch (Exception exUnhandled)
-
-				if (AgentCurrentDomain != null)
-				{
-					using (DirectoryEntry DirectoryEntry4Domain = AgentCurrentDomain.GetDirectoryEntry())
+					try
 					{
-						DirectorySearcher DirSrchr = new DirectorySearcher(DirectoryEntry4Domain, "(objectClass=*)", null, SearchScope.Base);
+						AgentCurrentDomain = Domain.GetCurrentDomain();
+					}
+					catch
+					{
+						AgentCurrentDomain = null;
 
-						SearchResult SrchRslt = DirSrchr.FindOne();
+					}  // END catch (Exception exUnhandled)
 
-						minPwdLength = default(Int32);
-
-						if (SrchRslt.Properties.Contains("minPwdLength"))
+					if (AgentCurrentDomain != null)
+					{
+						using (DirectoryEntry DirectoryEntry4Domain = AgentCurrentDomain.GetDirectoryEntry())
 						{
-							minPwdLength = (Int32)SrchRslt.Properties["minPwdLength"][0];
-						}
+							DirectorySearcher DirSrchr = new DirectorySearcher(DirectoryEntry4Domain, "(objectClass=*)", null, SearchScope.Base);
 
+							SearchResult SrchRslt = DirSrchr.FindOne();
+
+							minPwdLength = default(Int32);
+
+							if (SrchRslt.Properties.Contains("minPwdLength"))
+							{
+								minPwdLength = (Int32)SrchRslt.Properties["minPwdLength"][0];
+							}
+
+						}
 					}
 				}
 			} // END try
@@ -2667,7 +2680,7 @@ namespace Jeff.Jones.JHelpers6
 				}
 				else
 				{
-					retVal = System.IO.Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().CodeBase);
+					retVal = System.IO.Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location);
 				}
 
 				return retVal;
