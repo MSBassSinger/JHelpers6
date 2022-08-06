@@ -272,7 +272,7 @@ namespace Jeff.Jones.JHelpers6
 							}
 							else
 							{
-								message = message + "; Data=[None]";
+								message += "; Data=[None]";
 							}
 						}
 
@@ -664,7 +664,7 @@ namespace Jeff.Jones.JHelpers6
 			try
 			{
 				// remove white spaces 
-				testString = testString ?? "";
+				testString ??= "";
 
 				testString = testString.Trim();
 
@@ -736,7 +736,7 @@ namespace Jeff.Jones.JHelpers6
 			try
 			{
 				// remove white spaces 
-				testString = testString ?? "";
+				testString ??= "";
 
 				testString = testString.Trim();
 
@@ -799,7 +799,7 @@ namespace Jeff.Jones.JHelpers6
 			try
 			{
 				// remove white spaces 
-				testString = testString ?? "";
+				testString ??= "";
 
 				testString = testString.Trim();
 
@@ -1002,7 +1002,7 @@ namespace Jeff.Jones.JHelpers6
 					{
 						if (email.LastIndexOf(".") > email.LastIndexOf("@"))
 						{
-							if ((!email.Contains(" ")))
+							if (!email.Contains(' '))
 							{
 								mailAddress = new System.Net.Mail.MailAddress(email);
 								retValue = true;
@@ -1063,7 +1063,7 @@ namespace Jeff.Jones.JHelpers6
 		{
 			DateTime retVal = dateDefault;
 
-			dateString = dateString ?? "";
+			dateString ??= "";
 
 			try
 			{
@@ -1099,7 +1099,7 @@ namespace Jeff.Jones.JHelpers6
 		{
 			Decimal retVal = decimalDefault;
 
-			numberString = numberString ?? "";
+			numberString ??= "";
 
 			try
 			{
@@ -1136,7 +1136,7 @@ namespace Jeff.Jones.JHelpers6
 		{
 			Int32 retVal = integerDefault;
 
-			numberString = numberString ?? "";
+			numberString ??= "";
 
 			try
 			{
@@ -1172,7 +1172,7 @@ namespace Jeff.Jones.JHelpers6
 		{
 			Int64 retVal = integerDefault;
 
-			numberString = numberString ?? "";
+			numberString ??= "";
 
 			try
 			{
@@ -1435,10 +1435,14 @@ namespace Jeff.Jones.JHelpers6
 		public static Boolean IsInDomain()
 		{
 			Boolean retVal = false;
+
 			try
 			{
-				Domain ThisDomain = Domain.GetComputerDomain();
-				retVal = true;
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+				{
+					Domain ThisDomain = Domain.GetComputerDomain();
+					retVal = true;
+				}
 			}
 			catch
 			{
@@ -1519,7 +1523,10 @@ namespace Jeff.Jones.JHelpers6
 
 			try
 			{
-				retVal = Domain.GetComputerDomain().Name;
+				if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+				{
+					retVal = Domain.GetComputerDomain().Name;
+				}
 			}
 			catch
 			{
@@ -1544,7 +1551,10 @@ namespace Jeff.Jones.JHelpers6
 				try
 				{
 
-					retVal = Forest.GetCurrentForest().RootDomain.Name;
+					if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+					{
+						retVal = Forest.GetCurrentForest().RootDomain.Name;
+					}
 
 				}
 				catch
@@ -1559,7 +1569,10 @@ namespace Jeff.Jones.JHelpers6
 
 					try
 					{
-						retVal = Forest.GetCurrentForest().Name;
+						if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+						{
+							retVal = Forest.GetCurrentForest().Name;
+						}
 
 					}
 					catch
@@ -1814,12 +1827,12 @@ namespace Jeff.Jones.JHelpers6
 
 			} // END try
 
-			catch (Exception ex)
+			catch 
 			{
 
 				retVal = null;
 
-			}  // END catch (Exception exUnhandled)
+			}  // END catch 
 
 			finally
 			{
@@ -2322,7 +2335,7 @@ namespace Jeff.Jones.JHelpers6
 
 			try
 			{
-				StackTrace objTrace = new StackTrace(true);
+				StackTrace objTrace = new(true);
 				StackFrame objFrame = objTrace.GetFrame(1);
 				MethodBase objMethod = objFrame.GetMethod();
 				MemberInfo objMember = objMethod.DeclaringType;
@@ -2353,7 +2366,7 @@ namespace Jeff.Jones.JHelpers6
 
 			try
 			{
-				System.Diagnostics.StackTrace objTrace = new System.Diagnostics.StackTrace(ex, true);
+				System.Diagnostics.StackTrace objTrace = new(ex, true);
 				System.Diagnostics.StackFrame objFrame = objTrace.GetFrame(0);
 				System.Reflection.MethodBase objMethod = objFrame.GetMethod();
 				System.Reflection.MemberInfo objMember = objMethod.DeclaringType;
@@ -2594,11 +2607,11 @@ namespace Jeff.Jones.JHelpers6
 					{
 						using (DirectoryEntry DirectoryEntry4Domain = AgentCurrentDomain.GetDirectoryEntry())
 						{
-							DirectorySearcher DirSrchr = new DirectorySearcher(DirectoryEntry4Domain, "(objectClass=*)", null, SearchScope.Base);
+							DirectorySearcher DirSrchr = new(DirectoryEntry4Domain, "(objectClass=*)", null, SearchScope.Base);
 
 							SearchResult SrchRslt = DirSrchr.FindOne();
 
-							minPwdLength = default(Int32);
+							minPwdLength = default;
 
 							if (SrchRslt.Properties.Contains("minPwdLength"))
 							{
@@ -2825,7 +2838,7 @@ namespace Jeff.Jones.JHelpers6
 			try
 			{
 
-				lngThreadID = Thread.CurrentThread.ManagedThreadId;
+				lngThreadID = Environment.CurrentManagedThreadId;
 
 				if (pExceptionToUse == null)
 				{
@@ -3125,7 +3138,7 @@ namespace Jeff.Jones.JHelpers6
 		{
 			Boolean retVal = false;
 
-			StackTrace st = new StackTrace(true);
+			StackTrace st = new(true);
 
 			StackFrame frame = null;
 
