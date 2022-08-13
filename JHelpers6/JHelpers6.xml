@@ -782,6 +782,29 @@
             </summary>
             <returns>True if successful, false otherwise.</returns>
         </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ExtractEmailDomain(System.String,System.Boolean@)">
+            <summary>
+            Gets the email domain portion of a valid email address.
+            </summary>
+            <param name="emailAddress"></param>
+            <param name="isValid"></param>
+            <returns>A string with the domain (or host) name, or an empty string.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.ExtractEmailUser(System.String,System.Boolean@)">
+            <summary>
+            Gets the email user portion of a valid email address.
+            </summary>
+            <param name="emailAddress"></param>
+            <param name="isValid"></param>
+            <returns>A string with the user name, or an empty string.</returns>
+        </member>
+        <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.IsEmailValid(System.String)">
+            <summary>
+            Tests a string to see if it is a valid email address.
+            </summary>
+            <param name="emailAddress"></param>
+            <returns>True if valid, false if not.</returns>
+        </member>
         <member name="T:Jeff.Jones.JHelpers6.ContextMgr">
             <summary>
             The class is sealed to prevent derived instances, which would defeat the purpose of a singleton.

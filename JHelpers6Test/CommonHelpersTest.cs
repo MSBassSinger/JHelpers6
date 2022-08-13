@@ -136,7 +136,7 @@ namespace JHelpers6Test
 
             Int32 retVal = CommonHelpers.AvailableRAMinMB();
 
-            Assert.IsTrue(retVal > 10000, "Failed to get the AvailableRAMinMB value.");
+            Assert.IsTrue(retVal > 1000, "Failed to get the AvailableRAMinMB value.");
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace JHelpers6Test
 
             String retVal = CommonHelpers.FullComputerName;
 
-            Assert.IsTrue(retVal == "JJONES-DEV", "Failed to get the FullComputerName value.");
+            Assert.IsTrue(retVal.Contains(Environment.MachineName, StringComparison.CurrentCultureIgnoreCase), "Failed to get the FullComputerName value.");
         }
 
         /// <summary>
@@ -341,7 +341,7 @@ namespace JHelpers6Test
 
             String retVal = CommonHelpers.GetComputerDomainName();
 
-            Assert.IsTrue(retVal == "JJONES-DEV", "Failed to get the GetComputerDomainName value.");
+            Assert.IsTrue(retVal.Length > 2, "Failed to get the GetComputerDomainName value.");
         }
 
         /// <summary>
@@ -369,7 +369,7 @@ namespace JHelpers6Test
 
             String retVal = CommonHelpers.GetDNSName();
 
-            Assert.IsTrue(retVal == "JJONES-DEV", "Failed to get the GetDNSName value.");
+            Assert.IsTrue(retVal.Contains(Environment.MachineName, StringComparison.CurrentCultureIgnoreCase), "Failed to get the GetDNSName value.");
         }
 
         /// <summary>
@@ -566,7 +566,14 @@ namespace JHelpers6Test
 
             Int32 retVal = CommonHelpers.GetMinPasswordLength();
 
-            Assert.IsTrue(retVal == -1, "Failed to get the GetMinPasswordLength value.");
+            if (CommonHelpers.IsInDomain())
+            {
+                Assert.IsTrue(retVal >= 0, "Failed to get the GetMinPasswordLength value.");
+            }
+            else
+            {
+                Assert.IsTrue(retVal == -1, "Failed to get the GetMinPasswordLength value.");
+            }
         }
 
         /// <summary>
@@ -578,7 +585,14 @@ namespace JHelpers6Test
 
             List<ManagementObject> retVal = CommonHelpers.GetNetworkPrinters();
 
-            Assert.IsTrue(retVal.Count == 0, "Failed to get the GetNetworkPrinters value.");
+            if (CommonHelpers.IsInDomain())
+            {
+                Assert.IsTrue(retVal?.Count >= 0, "Failed to get the GetNetworkPrinters value.");
+            }
+            else
+            {
+                Assert.IsTrue(retVal?.Count == 0, "Failed to get the GetNetworkPrinters value.");
+            }
         }
 
         /// <summary>
@@ -608,28 +622,33 @@ namespace JHelpers6Test
         }
 
         /// <summary>
-        /// 
+        /// Tests adding up the total free drive space 
+        /// TODO: Change the drive letter if needed.
         /// </summary>
         [TestMethod]
-        public void GetTotalHDDFreeSpaceTest()
+        [DataRow("C")]
+        public void GetTotalHDDFreeSpaceTest(String drive)
         {
 
-            Int32 retVal = CommonHelpers.GetTotalHDDFreeSpace("C");
+            Int32 retVal = CommonHelpers.GetTotalHDDFreeSpace(drive);
 
-            Assert.IsTrue(retVal > 0, "Failed to get the GetTotalHDDFreeSpace value.");
+            Assert.IsTrue(retVal > 0, $"Failed to get the GetTotalHDDFreeSpace value from [{drive}].");
         }
 
         /// <summary>
-        /// 
+        /// Tests getting the total size of the specified drive.
+        /// TODO: Change the drive letter if needed.
         /// </summary>
         [TestMethod]
-        public void GetTotalHDDSizeTest()
+        [DataRow("C:")]
+        public void GetTotalHDDSizeTest(String drive)
         {
 
-            Int32 retVal = CommonHelpers.GetTotalHDDSize("C:");
+            Int32 retVal = CommonHelpers.GetTotalHDDSize(drive);
 
             Assert.IsTrue(retVal > 0, "Failed to get the GetTotalHDDSize value.");
         }
+
 
 
         /// <summary>
@@ -668,33 +687,34 @@ namespace JHelpers6Test
         }
 
         /// <summary>
-        /// 
+        /// Tests checking a file to see if it is a text file.
+        /// TODO: Change the fileName in DataRow[()] to match where the project doe is located on your machine.
         /// </summary>
         [TestMethod]
-        public void IsFileTextTest()
+        [DataRow(@"C:\Projects\JHelpers6\JHelpers6\License.txt")]
+        public void IsFileTextTest(String fileName)
         {
             Encoding encode = Encoding.ASCII;
-
-            String fileName = @"C:\Projects\JHelpers\JHelpers\License.txt";
 
             Boolean retVal = CommonHelpers.IsFileText(out encode, fileName, 80);
 
             Assert.IsTrue(retVal, "Failed to get the IsFileText value.");
 
-         }
+        }
 
         /// <summary>
-        /// 
+        /// Tests to see if the computer is in a domain.
+        /// TODO: Change the expected result in DataRow[()] to match whether your computer is in a domain or not.
         /// </summary>
         [TestMethod]
-        public void IsInDomainTest()
+        [DataRow(false)]
+        public void IsInDomainTest(Boolean expectedResult)
         {
             Boolean retVal = CommonHelpers.IsInDomain();
 
-            Assert.IsFalse(retVal, "Failed to get the IsInDomain value.");
+            Assert.IsTrue(retVal == expectedResult, "Failed to get the IsInDomain value.");
 
         }
-
 
         /// <summary>
         /// 
@@ -758,15 +778,17 @@ namespace JHelpers6Test
         }
 
         /// <summary>
-        /// 
+        /// Tests the writing of a message to a formatted log file.
+        /// TODO: Change the path and file name to what you want to use.
         /// </summary>
         [TestMethod]
-        public void WriteToLogTest()
+        [DataRow(@"C:\Projects\JHelpers6\JHelpers6\bin\Debug\net6.0\Output.txt")]
+        public void WriteToLogTest(String fileName)
         {
 
             String mainMessage = "Initial message for a write to file";
             String secondMessage = "Secondary message in the file write";
-            Boolean retVal = CommonHelpers.WriteToLog(@"C:\Projects\JHelpers\JHelpersTest\bin\Debug\netcoreapp3.0\Output.txt", mainMessage, secondMessage);
+            Boolean retVal = CommonHelpers.WriteToLog(fileName, mainMessage, secondMessage);
 
             Assert.IsTrue(retVal, "Failed to get the WriteToLog value.");
 
@@ -1180,11 +1202,68 @@ namespace JHelpers6Test
         }
 
 
+        /// <summary>
+        /// Tests to see if s string is a valid email address.  Similar to the [IsEmailFormat] String extension.
+        /// TODO:  You may wish to change the email address strings, or add more.
+        /// </summary>
+        /// <param name="emailAddress"></param>
+        /// <param name="expectedResult"></param>
+        [TestMethod]
+        [DataRow("Some.one@somewhere.com", true)]
+        [DataRow("Some.one @ somewhere.com", false)]
+		[DataRow("Some.one@somewhere", false)]
+		public void IsEmailValidTest(String emailAddress, Boolean expectedResult)
+        {
 
+            Boolean result = CommonHelpers.IsEmailValid(emailAddress);
 
+            Assert.IsTrue(result == expectedResult, $"Received [{result}], but expected [{expectedResult}].");
 
+        }
 
+        /// <summary>
+        /// Tests getting the email address user portion.
+        /// TODO:  You may wish to change the email address strings, or add more.
+        /// </summary>
+        /// <param name="emailAddress"></param>
+        /// <param name="expectedUser"></param>
+        /// <param name="expectedResult"></param>
+        [TestMethod]
+        [DataRow("Someone@somewhere.com", "Someone", true)]
+        [DataRow("Someone @ somewhere.com", "", false)]
+		[DataRow("Someone@somewhere", "", false)]
+		public void GetEmailUserTest(String emailAddress, String expectedUser, Boolean expectedResult)
+        {
 
+            Boolean result = false;
+
+            String userName = CommonHelpers.ExtractEmailUser(emailAddress, out result);
+
+            Assert.IsTrue(result == expectedResult, $"Received [{result}], but expected [{expectedResult}].");
+            Assert.IsTrue(userName == expectedUser, $"Received [{userName}], but expected [{expectedUser}].");
+        }
+
+        /// <summary>
+        /// Tests getting the email address domain (or hsot) portion.
+        /// TODO:  You may wish to change the email address strings, or add more.
+        /// </summary>
+        /// <param name="emailAddress"></param>
+        /// <param name="expectedDomain"></param>
+        /// <param name="expectedResult"></param>
+        [TestMethod]
+        [DataRow("Someone@somewhere.com", "somewhere.com", true)]
+        [DataRow("Someone @ somewhere.com", "", false)]
+		[DataRow("Someone@somewhere", "", false)]
+		public void GetEmailDomainTest(String emailAddress, String expectedDomain, Boolean expectedResult)
+        {
+
+            Boolean result = false;
+
+            String domainName = CommonHelpers.ExtractEmailDomain(emailAddress, out result);
+
+            Assert.IsTrue(result == expectedResult, $"Received [{result}], but expected [{expectedResult}].");
+            Assert.IsTrue(domainName == expectedDomain, $"Received [{domainName}], but expected [{expectedDomain}].");
+        }
 
 
     }

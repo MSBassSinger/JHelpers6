@@ -14,6 +14,10 @@ https://github.com/MSBassSinger/JHelpers6
 Code examples are available in the sample application found at:
 https://github.com/MSBassSinger/JHelpers_Demo6
 
+NuGet package is found at:
+https://www.nuget.org/packages/Jeff.Jones.JHelpers6
+or by searching with NuGet package manager for "Jeff.Jones.JHelpers6"
+
 ContextMgr
 ----------
 
@@ -39,4 +43,5 @@ CommonHelpers
 -------------
 
 This is a static class with a number of useful static methods and extension methods.
+The JHelpers_Demo6 demo project shows the usage.
 

@@ -7,12 +7,15 @@ using System.DirectoryServices.ActiveDirectory;
 using System.IO;
 using System.Management;
 using System.Net;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.CSharp.RuntimeBinder;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Jeff.Jones.JHelpers6
 {
@@ -992,7 +995,7 @@ namespace Jeff.Jones.JHelpers6
 
 			Boolean retValue = false;
 
-			System.Net.Mail.MailAddress mailAddress = null;
+			MailAddress mailAddress = null;
 
 			try
 			{
@@ -3202,6 +3205,118 @@ namespace Jeff.Jones.JHelpers6
 			return retVal;
 
 		}
+
+		/// <summary>
+		/// Gets the email domain portion of a valid email address.
+		/// </summary>
+		/// <param name="emailAddress"></param>
+		/// <param name="isValid"></param>
+		/// <returns>A string with the domain (or host) name, or an empty string.</returns>
+		public static String ExtractEmailDomain(String emailAddress, out Boolean isValid)
+		{
+			String retVal = "";
+			isValid = false;
+
+			try
+			{
+				isValid = IsEmailValid(emailAddress);
+
+				if (isValid)
+				{
+					retVal = new MailAddress(emailAddress).Host;
+				}
+			}
+			catch
+			{
+				isValid = false;
+			}
+
+			return retVal;
+		}
+
+		/// <summary>
+		/// Gets the email user portion of a valid email address.
+		/// </summary>
+		/// <param name="emailAddress"></param>
+		/// <param name="isValid"></param>
+		/// <returns>A string with the user name, or an empty string.</returns>
+		public static String ExtractEmailUser(String emailAddress, out Boolean isValid)
+		{
+			String retVal = "";
+			isValid = false;
+
+			try
+			{
+				isValid = IsEmailValid(emailAddress);
+
+				if (isValid)
+				{
+					retVal = new MailAddress(emailAddress).User;
+				}
+			}
+			catch
+			{
+				isValid = false;
+			}
+
+			return retVal;
+		}
+
+		/// <summary>
+		/// Tests a string to see if it is a valid email address.
+		/// </summary>
+		/// <param name="emailAddress"></param>
+		/// <returns>True if valid, false if not.</returns>
+		public static Boolean IsEmailValid(String emailAddress)
+		{
+			Boolean retVal = false;
+
+			try
+			{
+
+
+				if (emailAddress == null)
+				{
+					retVal = false;
+				}
+				else if (emailAddress.Contains(' '))  // email address cannnot have a space.
+				{
+					retVal = false;
+				}
+				else if (!emailAddress.Contains('@'))  // email address must have an "@"
+				{
+					retVal = false;
+				}
+				else 
+				{
+
+					String host = new MailAddress(emailAddress).Host;
+
+					// Email address host (domain) must have a period.
+					if (host.Contains('.'))
+					{
+					    // All else being OK, make sure the .NET object says it is valid.
+						if (new EmailAddressAttribute().IsValid(emailAddress))
+						{
+							retVal = true;
+						}
+					}
+					else
+					{
+						retVal = false;
+					}
+				}
+
+			}
+			catch
+			{
+				retVal = false;
+			}
+
+			return retVal;
+
+		}
+
 
 
 	}  // END public static class CommonHelpers
