@@ -329,6 +329,7 @@
                System.IO.PathTooLongException          [Path.GetDirectoryName()]
                </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Jeff.Jones.JHelpers6.CommonHelpers.Add(System.Collections.Concurrent.ConcurrentDictionary{System.String,System.Object},System.String,System.Object)" -->
         <member name="M:Jeff.Jones.JHelpers6.CommonHelpers.AddCheck(System.Collections.IDictionary,System.String,System.Object)">
             <summary>
             IDictionary extension method that is an enhanced Add to check to see if a key exists, and if so, 
@@ -815,7 +816,7 @@
             The single, thread-safe instance of the ContextMgr.
             </summary>
         </member>
-        <member name="F:Jeff.Jones.JHelpers6.ContextMgr.m_ContextValues">
+        <member name="F:Jeff.Jones.JHelpers6.ContextMgr.m_ContextDictionary">
             <summary>
             The dictionary containing the name-value pairs.
             </summary>

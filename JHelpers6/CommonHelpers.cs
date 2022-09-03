@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.CSharp.RuntimeBinder;
 using System.ComponentModel.DataAnnotations;
-
+using System.Collections.Concurrent;
 
 namespace Jeff.Jones.JHelpers6
 {
@@ -1373,6 +1373,35 @@ namespace Jeff.Jones.JHelpers6
 			{
 				System.Environment.CurrentDirectory = value;
 			}
+		}
+
+
+		/// <summary>
+		/// Since ConcurrentDictionary<> has no Add function, this extension provides that for 
+		/// backwards compatibility for IDictionary replacement.
+		/// 
+		/// This extention will add if new, or update of the key exists.
+		/// </summary>
+		/// <param name="dct">The ConcurrentDictionary instance</param>
+		/// <param name="dataKey">Key for the value to add</param>
+		/// <param name="dataValue">Value to match the key.</param>
+		public static void Add(this ConcurrentDictionary<String, dynamic> dct, String dataKey, dynamic dataValue)
+		{
+			if (dct != null)
+			{
+				if (dct.ContainsKey(dataKey))
+				{
+					dynamic currValue;
+					
+					dct.TryGetValue(dataKey, out currValue);
+					dct.TryUpdate(dataKey, dataValue, currValue);
+				}
+				else
+				{
+					dct.TryAdd(dataKey, dataValue);
+				}
+			}
+
 		}
 
 		/// <summary>

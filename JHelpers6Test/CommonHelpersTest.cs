@@ -803,11 +803,13 @@ namespace JHelpers6Test
             Boolean retVal = false;
 
             ContextMgr.Instance.ContextValues.Add("Computer Name", Environment.MachineName);
+
             ContextMgr.Instance.ContextValues.Add("Startup Time", DateTime.Now);
-            IPAddress[] ips = Dns.GetHostAddresses("JJONES-DEV");
+
+			IPAddress[] ips = Dns.GetHostAddresses("JJONES-DEV");
             ContextMgr.Instance.ContextValues.Add("IP Addresses", ips);
 
-            dynamic machineName = "";
+			dynamic machineName = "";
             retVal = ContextMgr.Instance.ContextValues.TryGetValue("Computer Name", out machineName);
             Assert.IsTrue(retVal, "Failed to obtain computer name from the ContextMgr.");
 
