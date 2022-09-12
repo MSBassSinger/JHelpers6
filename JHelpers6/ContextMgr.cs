@@ -17,9 +17,8 @@ namespace Jeff.Jones.JHelpers6
         public static readonly ContextMgr Instance = new ContextMgr();
 
         /// <summary>
-        /// The dictionary containing the name-value pairs.
+        /// The thread-safe dictionary containing the name-value pairs.
         /// </summary>
-        //private volatile Dictionary<String, dynamic> m_ContextValues = new Dictionary<string, dynamic>();
         private volatile ConcurrentDictionary<String, dynamic> m_ContextDictionary = new ConcurrentDictionary<String, dynamic>();
 
         /// <summary>
@@ -33,11 +32,7 @@ namespace Jeff.Jones.JHelpers6
         /// </summary>
         private ContextMgr()
         {
-            //if (m_ContextValues == null)
-            //{
-            //    m_ContextValues = new Dictionary<String, dynamic>();
-            //}
-
+ 
 			if (m_ContextDictionary == null)
 			{
 				m_ContextDictionary = new ConcurrentDictionary<String, dynamic>();
@@ -53,13 +48,6 @@ namespace Jeff.Jones.JHelpers6
         {
             get
             {
-                //if (m_ContextValues == null)
-                //{
-                //    m_ContextValues = new Dictionary<string, dynamic>();
-                //}
-
-                //return m_ContextValues;
-
 				if (m_ContextDictionary == null)
 				{
 					m_ContextDictionary = new ConcurrentDictionary<String, dynamic>();
@@ -156,16 +144,7 @@ namespace Jeff.Jones.JHelpers6
                         //     m_objComputers = null;
                         //     }
 
- 
-                        //if (m_ContextValues != null)
-                        //{
-
-                        //    m_ContextValues.Clear();
-
-                        //    m_ContextValues = null;
-                        //}
-
-						if (m_ContextDictionary != null)
+ 						if (m_ContextDictionary != null)
 						{
 
 							m_ContextDictionary.Clear();

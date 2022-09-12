@@ -1,6 +1,8 @@
 JHelpers version 6
 ========
 
+Version 6.0.1 Update - changed out the ContextHelper Dictionary<> for ConcurrentDictionary<>.
+
 JHelpers6 is a .NET 6 library component that can be used with any .NET
 project that uses .NET 6 on any OS that works with .NET 6. It
 is a library of generally useful methods and functionality that can save a

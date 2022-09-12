@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<RootNamespace>Jeff.Jones.JHelpers6</RootNamespace>
-		<PackageVersion>6.0.0</PackageVersion>
+		<PackageVersion>6.0.1</PackageVersion>
 		<ApplicationIcon>circlej.ico</ApplicationIcon>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -19,12 +19,12 @@
 		<Description>A static library of helper functions, extentions, and classes.  You are bound to find something useful.  Built for .NET 6</Description>
 		<SignAssembly>False</SignAssembly>
 		<AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-		<Version>6.0.0</Version>
+		<Version>6.0.1</Version>
 		<DelaySign>false</DelaySign>
 		<RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
 		<PackageProjectUrl>https://github.com/MSBassSinger/JHelpers6</PackageProjectUrl>
-		<AssemblyVersion>6.0.0.0</AssemblyVersion>
-		<FileVersion>6.0.0.0</FileVersion>
+		<AssemblyVersion>6.0.1.0</AssemblyVersion>
+		<FileVersion>6.0.1.0</FileVersion>
 		<PackageIcon>circlej.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<BaseOutputPath>bin\</BaseOutputPath>

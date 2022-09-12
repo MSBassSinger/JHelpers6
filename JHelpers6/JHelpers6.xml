@@ -818,7 +818,7 @@
         </member>
         <member name="F:Jeff.Jones.JHelpers6.ContextMgr.m_ContextDictionary">
             <summary>
-            The dictionary containing the name-value pairs.
+            The thread-safe dictionary containing the name-value pairs.
             </summary>
         </member>
         <member name="F:Jeff.Jones.JHelpers6.ContextMgr.m_blnDisposeHasBeenCalled">
