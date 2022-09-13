@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Caching.Memory;
 using System.Text;
+using System.Collections.Concurrent;
 
 namespace Jeff.Jones.JHelpers6
 {
@@ -15,9 +17,9 @@ namespace Jeff.Jones.JHelpers6
         public static readonly ContextMgr Instance = new ContextMgr();
 
         /// <summary>
-        /// The dictionary containing the name-value pairs.
+        /// The thread-safe dictionary containing the name-value pairs.
         /// </summary>
-        private volatile Dictionary<String, dynamic> m_ContextValues = new Dictionary<string, dynamic>();
+        private volatile ConcurrentDictionary<String, dynamic> m_ContextDictionary = new ConcurrentDictionary<String, dynamic>();
 
         /// <summary>
         /// True if dispose was called.
@@ -30,29 +32,30 @@ namespace Jeff.Jones.JHelpers6
         /// </summary>
         private ContextMgr()
         {
-            if (m_ContextValues == null)
-            {
-                m_ContextValues = new Dictionary<String, dynamic>();
-            }
-        }
+ 
+			if (m_ContextDictionary == null)
+			{
+				m_ContextDictionary = new ConcurrentDictionary<String, dynamic>();
+			}
+		}
 
         /// <summary>
         /// Gets the dictionary of context values.
         /// The dictionary cannot be set by the calling code, but the dictioanry elements can be added, edited, or removed.
         /// </summary>
         /// <returns>Returns a reference to the dictionary.</returns>
-        public Dictionary<String, dynamic> ContextValues
+        public ConcurrentDictionary<String, dynamic> ContextValues
         {
             get
             {
-                if (m_ContextValues == null)
-                {
-                    m_ContextValues = new Dictionary<string, dynamic>();
-                }
+				if (m_ContextDictionary == null)
+				{
+					m_ContextDictionary = new ConcurrentDictionary<String, dynamic>();
+				}
 
-                return m_ContextValues;
-            }
-        }
+				return m_ContextDictionary;
+			}
+		}
 
 
         #region IDisposable Implementation=========================
@@ -141,22 +144,21 @@ namespace Jeff.Jones.JHelpers6
                         //     m_objComputers = null;
                         //     }
 
- 
-                        if (m_ContextValues != null)
-                        {
+ 						if (m_ContextDictionary != null)
+						{
 
-                            m_ContextValues.Clear();
+							m_ContextDictionary.Clear();
 
-                            m_ContextValues = null;
-                        }
+							m_ContextDictionary = null;
+						}
 
 
-                        // If the base object for this instance has a Dispose() method, call it.
-                        //base.Dispose();
-                    }
+						// If the base object for this instance has a Dispose() method, call it.
+						//base.Dispose();
+					}
 
-                    // Set the flag that Dispose has been called and executed.
-                    m_blnDisposeHasBeenCalled = true;
+					// Set the flag that Dispose has been called and executed.
+					m_blnDisposeHasBeenCalled = true;
                 }
 
             }
